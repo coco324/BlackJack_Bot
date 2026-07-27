@@ -14,13 +14,23 @@ export class bot {
 
     public play(): void {
         const playerScore = this.GetGame().getPlayerScore();
+        const playerCards = this.GetGame().getPlayerMain().map(c => c.getNom());
+        const playercardsValues = this.GetGame().getPlayerMain().map(c => c.getValue());
+        let handType: 'hard' | 'soft' | 'pairs' = 'hard';
+        if(playerCards.includes("A") ){
+            handType = "soft";
+        }
+        if(playercardsValues[0] === playercardsValues[1]){
+            handType = "pairs";
+        }
+
+
+
 
         if (playerScore < 17) {
-            console.log('Le bot décide de tirer une carte.')
             this.GetGame().playerHit()
         }
         else {
-            console.log('Le bot décide de rester.')
             this.GetGame().playerStand()
         }
     }
