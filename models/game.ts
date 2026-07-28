@@ -137,6 +137,12 @@ export class game{
         return c
     }
 
+    public playerDouble():void {
+        this.player.setStatus('stop')
+        this.playerHit()
+        this.nextHand()
+    }
+
     public playerStand(): void {
         this.player.setStatus('stop')
         // Passe à la main suivante ou joue le dealer
@@ -201,6 +207,11 @@ export class game{
     // Calcul du score du dealer — si visibleOnly est true, ne compte que la première carte
     public getDealerScore(): number {
         return this.dealer.getscore();
+    }
+
+    // Calcul du score du dealer, prend aussi en compte les carte caché 
+    public getDealerScoreAllCard(): number{
+        return this.dealer.getScoreAllCards();
     }
 
     public evaluate(): void {
