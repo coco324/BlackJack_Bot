@@ -1,19 +1,19 @@
-import { game } from './game'
-import { bot } from './bot'
+import { game } from '../engine/game'
+import { bot } from '../bot/bot'
 import fs from 'node:fs'
 
 console.log('Démarrage de la simulation...')
 
-fs.writeFileSync('output.jsonl', '') // vide le fichier
+fs.writeFileSync('output/output.jsonl', '') // vide le fichier
 
 function logLine(data: object) {
-    fs.appendFileSync('output.jsonl', JSON.stringify(data) + '\n')
+    fs.appendFileSync('output/output.jsonl', JSON.stringify(data) + '\n')
 }
 
 const g = new game()
 const monBot = new bot(g)
 
-const NB_PARTIES = 10000
+const NB_PARTIES = 10
 
 for (let i = 0; i < NB_PARTIES; i++) {
     g.resetRound()

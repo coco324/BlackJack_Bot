@@ -1,5 +1,5 @@
-import { game } from './game'
-import { card } from './card'
+import { game } from '../engine/game'
+import { card } from '../engine/card'
 import data from './strategy.json'
 
 type Action = 'H' | 'S' | 'D' | 'P'

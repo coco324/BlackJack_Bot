@@ -19,7 +19,7 @@ interface FinalLine {
     finalPlayerScore: number
 }
 
-const lines = fs.readFileSync('output.jsonl', 'utf-8').trim().split('\n')
+const lines = fs.readFileSync('output/output.jsonl', 'utf-8').trim().split('\n')
 const allData = lines.map(l => JSON.parse(l))
 
 // Sépare décisions et résultats finaux
@@ -138,7 +138,7 @@ const workbook = XLSX.utils.book_new()
 XLSX.utils.book_append_sheet(workbook, worksheet, 'Stats')
 XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(resumeData), 'Résumé')
 
-XLSX.writeFile(workbook, 'stats.xlsx')
+XLSX.writeFile(workbook, 'output/stats.xlsx')
 console.log('Fichier stats.xlsx généré')
 
-// npx tsx models/analyze.ts
+// npx tsx src/analystic/analyze.ts
