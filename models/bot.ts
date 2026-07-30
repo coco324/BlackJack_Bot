@@ -16,7 +16,7 @@ export class bot {
     // en clé utilisable dans strategy.json ('10' ou 'A' ou '2'...'9')
     private getCardKey(cardName: string): string {
         if (cardName === 'A') return 'A'
-        if (['J', 'Q', 'K'].includes(cardName)) return '10'
+        if (['V', 'D', 'R'].includes(cardName)) return '10'
         return cardName
     }
 
@@ -45,7 +45,7 @@ export class bot {
     return score
 }
 
-    public play(): void {
+    public play(): { playerScore: number, playerCards: string[], dealerUpCard: string, handType: HandType, action: Action } {
         const playerScore = this.GetGame().getPlayerScore()
         const playerCards = this.GetGame().getPlayerMain()
 
@@ -78,7 +78,7 @@ export class bot {
             const clampedScore = this.clamp(playerScore, 8, 17)
             action = (data as any)[handType][clampedScore.toString()][dealerKey]
         }
-        console.log(action)
+        const result = { playerScore, playerCards: playerCards.map(c => c.getNom()), dealerUpCard: dealerUpCard.getNom(), handType, action }
 
         if (action === 'H') {
             this.GetGame().playerHit()
@@ -92,6 +92,9 @@ export class bot {
         else {
             this.GetGame().playerSplit()
         }
+
+        return result
+
     }
 
     public GetGame(): game {

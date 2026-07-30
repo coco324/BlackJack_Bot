@@ -35,7 +35,6 @@ export class game{
         const hasNext = this.player.nextHand()
         const hands = this.player.getHands()
         const scores = hands.map(h => h.getscore())
-        console.log('Scores des mains du joueur:', scores)
         if (!hasNext && scores.every(score => score <= 21)) {
             // Toutes les mains ont été jouées, on passe au dealer
             this.playDealer()

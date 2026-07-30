@@ -1,22 +1,43 @@
 import { game } from './game'
 import { bot } from './bot'
+import fs from 'node:fs'
 
 console.log('Démarrage de la simulation...')
 
+fs.writeFileSync('output.jsonl', '') // vide le fichier
+
+function logLine(data: object) {
+    fs.appendFileSync('output.jsonl', JSON.stringify(data) + '\n')
+}
 
 const g = new game()
 const monBot = new bot(g)
 
-g.startGame()
+const NB_PARTIES = 10000
 
-console.log('Main du joueur:', g.getPlayerMain().map(c => c.getNom()))
-console.log('Main du dealer:', g.getDealerScore())
-console.log('Score joueur:', g.getPlayerScore())
+for (let i = 0; i < NB_PARTIES; i++) {
+    g.resetRound()
+    let step = 0
 
-while (g.getPlayerStatus() === 'start') {
-    monBot.play()
+    while (g.getPlayerStatus() === 'start') {
+        const handIndex = g.getCurrentHandIndex()
+        const result = monBot.play()
+        logLine({ roundId: i, step, handIndex, ...result })
+        step++
+    }
+
+    const nbHands = g.getPlayersMain().length
+    for (let handIndex = 0; handIndex < nbHands; handIndex++) {
+        logLine({
+            roundId: i,
+            step: 'final',
+            handIndex,
+            result: g.getPlayerStatusByIndex(handIndex),
+            finalPlayerScore: g.getPlayerScoreByIndex(handIndex),
+            finalDealerScore: g.getDealerScore(),
+            finalDealerCards: g.getDealerMain().map(c => c.getNom())
+        })
+    }
 }
 
-console.log('Main final du joueur:', g.getPlayerMain().map(c => c.getNom()), 'Score final:', g.getPlayerScore())
-console.log('Main final du dealer:', g.getDealerMain().map(c => c.getNom()), 'Score final:',g.getDealerScoreAllCard())
-console.log('Statut final du joueur:', g.getPlayerStatus())
+console.log(`${NB_PARTIES} parties jouées, résultats dans output.jsonl`)
