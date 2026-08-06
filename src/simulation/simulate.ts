@@ -13,10 +13,14 @@ export function runSimulation(nbParties: number) {
     const g = new game()
     const monBot = new bot(g)
 
-
+    console.log(`Simulation de ${nbParties} parties en cours...`)
     for (let i = 0; i < nbParties; i++) {
         g.resetRound()
         let step = 0
+
+        if (i % 1000 === 0 || i === nbParties) {
+            process.stdout.write(`\rParties jouées : ${i}/${nbParties}`);
+        }
 
         while (g.getPlayerStatus() === 'start') {
             const handIndex = g.getCurrentHandIndex()

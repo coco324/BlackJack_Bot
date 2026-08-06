@@ -20,6 +20,7 @@ async function main() {
     runSimulation(nbParties)
 
     console.log('Analyse des résultats...')
+    await runAnalysis()
     runAnalysis()
 
     console.log('Terminé ! Fichier stats.xlsx généré dans output/.')

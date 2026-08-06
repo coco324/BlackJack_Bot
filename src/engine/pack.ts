@@ -11,14 +11,11 @@ export class pack {
   public GetCard(): card {
     let carte = this.listCart.pop();
     if (!carte) {
-      console.log('melange du paquet');
-      // Pas de carte restante -> reconstitue et remélange le paquet
       this.shuffle();
       carte = this.listCart.pop();
     }
 
     if (!carte) {
-      // Cas extrêmement improbable : le paquet est vide après shuffle
       throw new Error('Aucune carte disponible dans le paquet')
     }
 
@@ -34,7 +31,7 @@ export class pack {
   }
   
   public shuffle(): void {
-    // Réinitialise le paquet avant de le remplir
+
     this.listCart = [];
     for (let i = 0; i < 4; i++) {
       let symbole: string[] = ['♥', '♣', '♦', '♠'];
@@ -55,11 +52,11 @@ export class pack {
       });
     }
 
-    // Fisher–Yates shuffle pour mélanger le tableau de façon aléatoire
+
     for (let i = this.listCart.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      const tmp = this.listCart[i] as card; // Assertion de type
-      this.listCart[i] = this.listCart[j] as card; // Assertion de type
+      const tmp = this.listCart[i] as card; 
+      this.listCart[i] = this.listCart[j] as card; 
       this.listCart[j] = tmp;
     }
   }
