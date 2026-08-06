@@ -13,9 +13,8 @@ export function runSimulation(nbParties: number) {
     const g = new game()
     const monBot = new bot(g)
 
-    const NB_PARTIES = 10
 
-    for (let i = 0; i < NB_PARTIES; i++) {
+    for (let i = 0; i < nbParties; i++) {
         g.resetRound()
         let step = 0
 
@@ -40,5 +39,5 @@ export function runSimulation(nbParties: number) {
         }
     }
 
-    console.log(`${NB_PARTIES} parties jouées, résultats dans output/output.jsonl`)
+    console.log(`${nbParties} parties jouées, résultats dans output/output.jsonl`)
 }

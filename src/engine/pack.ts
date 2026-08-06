@@ -36,22 +36,24 @@ export class pack {
   public shuffle(): void {
     // Réinitialise le paquet avant de le remplir
     this.listCart = [];
-    let symbole: string[] = ['♥', '♣', '♦', '♠'];
-    symbole.forEach((element: string) => {
-      this.listCart.push(new card('2', 2, element));
-      this.listCart.push(new card('3', 3, element));
-      this.listCart.push(new card('4', 4, element));
-      this.listCart.push(new card('5', 5, element));
-      this.listCart.push(new card('6', 6, element));
-      this.listCart.push(new card('7', 7, element));
-      this.listCart.push(new card('8', 8, element));
-      this.listCart.push(new card('9', 9, element));
-      this.listCart.push(new card('10', 10, element));
-      this.listCart.push(new card('V', 10, element));
-      this.listCart.push(new card('D', 10, element));
-      this.listCart.push(new card('R', 10, element));
-      this.listCart.push(new card('A', 11, element));
-    });
+    for (let i = 0; i < 4; i++) {
+      let symbole: string[] = ['♥', '♣', '♦', '♠'];
+      symbole.forEach((element: string) => {
+        this.listCart.push(new card('2', 2, element));
+        this.listCart.push(new card('3', 3, element));
+        this.listCart.push(new card('4', 4, element));
+        this.listCart.push(new card('5', 5, element));
+        this.listCart.push(new card('6', 6, element));
+        this.listCart.push(new card('7', 7, element));
+        this.listCart.push(new card('8', 8, element));
+        this.listCart.push(new card('9', 9, element));
+        this.listCart.push(new card('10', 10, element));
+        this.listCart.push(new card('V', 10, element));
+        this.listCart.push(new card('D', 10, element));
+        this.listCart.push(new card('R', 10, element));
+        this.listCart.push(new card('A', 11, element));
+      });
+    }
 
     // Fisher–Yates shuffle pour mélanger le tableau de façon aléatoire
     for (let i = this.listCart.length - 1; i > 0; i--) {
